@@ -1,4 +1,4 @@
-package furhatos.app.fruitseller
+package furhatos.app.objectidentifer
 
 
 import org.zeromq.ZMQ

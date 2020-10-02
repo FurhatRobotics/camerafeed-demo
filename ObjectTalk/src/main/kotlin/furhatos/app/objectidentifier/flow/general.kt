@@ -1,4 +1,4 @@
-package furhatos.app.fruitseller.flow
+package furhatos.app.objectidentifer.flow
 
 import furhatos.event.Event
 import furhatos.flow.kotlin.furhat

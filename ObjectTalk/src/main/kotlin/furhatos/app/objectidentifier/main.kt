@@ -1,4 +1,4 @@
-package furhatos.app.fruitseller
+package furhatos.app.objectidentifer
 
 import furhatos.app.fruitseller.flow.*
 import furhatos.event.EventSystem
@@ -54,7 +54,7 @@ fun startListenThread() {
     }
 }
 
-class FruitsellerSkill : Skill() {
+class ObjectIdentifierSkill : Skill() {
     override fun start() {
         startListenThread()
         Flow().run(Main)
