@@ -1,4 +1,4 @@
-package furhatos.app.objectidentifer.flow
+package furhatos.app.objectidentifier.flow
 
 import furhatos.event.Event
 import furhatos.flow.kotlin.furhat

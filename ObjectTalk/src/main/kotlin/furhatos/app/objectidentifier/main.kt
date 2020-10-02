@@ -1,6 +1,9 @@
-package furhatos.app.objectidentifer
+package furhatos.app.objectidentifier
 
-import furhatos.app.fruitseller.flow.*
+import furhatos.app.objectidentifer.getConnectedSocket
+import furhatos.app.objectidentifier.flow.EnterEvent
+import furhatos.app.objectidentifier.flow.LeaveEvent
+import furhatos.app.objectidentifier.flow.Main
 import furhatos.event.EventSystem
 import furhatos.skills.Skill
 import furhatos.flow.kotlin.*
