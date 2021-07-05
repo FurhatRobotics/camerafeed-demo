@@ -140,42 +140,36 @@ detection_period = config["detection_period"] # Detecting objects is resource in
 detection_threshold = config["detection_confidence_threshold"] # Detection threshold takes a double between 0.0 and 1.0
 x = True
 while x:
-    for a in range(2):
-        string = insocket.recv()
-    print('data:',len(string),'bytes')
 
-    if (iterations % detection_period == 0):
-        print("Detecting objects!")
+    string = insocket.recv()
+    magicnumber = string[0:3]
+    print(magicnumber)
+    # check if we have a JPEG image (starts with ffd8ff)
+    if magicnumber == b'\xff\xd8\xff':
         buf = np.frombuffer(string,dtype=np.uint8)
         img = cv2.imdecode(buf,flags=1)
-        height,width,channels = img.shape
-        res = detect(net,img, detection_threshold)
-        img2=draw(img,res)
 
-        currset = getObjectSet(objectList(res))
-        objdiff = compareSets(prevset,currset)
-        if len(objdiff):
-            msg = ' '.join(objdiff)
-            outsocket.send_string(msg)
+        if (iterations % detection_period == 0):
+            print("Detecting objects!")
+            buf = np.frombuffer(string,dtype=np.uint8)
+            img = cv2.imdecode(buf,flags=1)
+            height,width,channels = img.shape
+            res = detect(net,img, detection_threshold)
+            img2=draw(img,res)
 
-        prevset = currset
-        
-        cv2.imshow("yolov3", img2)
-    else:
-        print("Showing image!")
-        buf = np.frombuffer(string,dtype=np.uint8)
-        img = cv2.imdecode(buf,flags=1)
-        img2 = draw(img, res)
-        cv2.imshow("yolov3", img)
+            currset = getObjectSet(objectList(res))
+            objdiff = compareSets(prevset,currset)
+            if len(objdiff):
+                msg = ' '.join(objdiff)
+                outsocket.send_string(msg)
 
-    iterations = iterations + 1
+            prevset = currset
+            cv2.imshow("yolov3", img2)
+
+        iterations = iterations + 1
     
     k = cv2.waitKey(1)
     if k%256 == 27: # When pressing esc the program stops.
         # ESC pressed
         print("Escape hit, closing...")
         break
-
-
-
-
